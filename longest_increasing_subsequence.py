@@ -97,3 +97,24 @@ class Solution_dp_to_get_actual_sequence:
 
         return ans
 
+
+class Solution_brute_force:
+    def helper(self, pivot, nums, path):
+        # base case
+        self.ans = max(self.ans, len(path))
+
+        # logic
+        # since using for loop based recusion not choose case
+        # will be considered automatically
+        for idx in range(pivot, len(nums)):
+            # comapre with the last added number
+            # what if path is empty
+            if not path or nums[idx] > path[-1]:
+                path.append(nums[idx])
+                self.helper(idx + 1, nums, path)
+                path.pop()
+
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        self.ans = 0
+        self.helper(0, nums, [])
+        return self.ans
